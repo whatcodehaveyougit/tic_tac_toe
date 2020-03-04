@@ -1,0 +1,14 @@
+.square {
+  border: 1px solid black;
+
+  height: 100px;
+}
+
+.toggle-player-1,
+.toggle-player-2 {
+  /* display: none; */
+}
+
+.black {
+  display: inline !important;
+}
