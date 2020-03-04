@@ -8,3 +8,13 @@
 h1 {
   text-align: center;
 }
+
+.new-game {
+  text-align: center;
+  display: block;
+  margin: auto;
+  margin-top: 50px;
+  padding: 20px 60px;
+  font-size: 30px;
+  border-radius: 33px;
+}

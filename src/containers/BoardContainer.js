@@ -22,6 +22,7 @@ class BoardContainer extends Component {
       activePlayer: "X"
     };
     this.nodemonBanana = this.takeSquare.bind(this);
+    this.resetBoard = this.resetBoard.bind(this);
     // this.changeActivePlayer = this.changeActivePlayer.bind(this);
   }
 
@@ -54,6 +55,17 @@ class BoardContainer extends Component {
         }
       }
     });
+  }
+
+  resetBoard(){
+    const boardArray = this.state.board.map(square => {
+      if (square.value != null) {
+        return { id: square.id, value: null };
+      } else {
+        return square
+      }
+    });
+    this.setState({ board: boardArray });
   }
 
   render() {
@@ -96,8 +108,9 @@ class BoardContainer extends Component {
           <Square
             square={this.state.board[8]}
             onSquareSelected={this.nodemonBanana}
-          />
+          /> 
         </section>
+        <button class="new-game" onClick={this.resetBoard}>Start New Game</button>  
       </Fragment>
     );
   }
