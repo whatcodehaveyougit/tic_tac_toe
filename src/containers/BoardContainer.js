@@ -23,7 +23,72 @@ class BoardContainer extends Component {
     };
     this.nodemonBanana = this.takeSquare.bind(this);
     this.resetBoard = this.resetBoard.bind(this);
-    // this.changeActivePlayer = this.changeActivePlayer.bind(this);
+    this.checkForWinner = this.checkForWinner.bind(this);
+    this.checkForWinner = this.checkForWinner.bind(this);
+  }
+
+  winningMessageForX(){
+    // const winner = this.state.activePlayer
+    // document.getElementById("heading").innerHTML = "Player " + winner + " wins!"
+    document.getElementById("heading").innerHTML = "Player X wins!"
+
+  }
+
+  winningMessageForO(){
+    document.getElementById("heading").innerHTML = "Player O wins!"
+  }
+
+
+  checkForWinner(){
+    if (this.state.board[0].value && this.state.board[1].value && this.state.board[2].value === "X"){
+      this.winningMessageForX();
+    } else if
+    (this.state.board[3].value && this.state.board[4].value && this.state.board[5].value === "X"){
+      this.winningMessageForX();
+    } else if
+    (this.state.board[6].value && this.state.board[7].value && this.state.board[8].value === "X"){
+      this.winningMessageForX();
+    } else if
+    (this.state.board[0].value && this.state.board[3].value && this.state.board[6].value === "X"){
+      this.winningMessageForX();
+    } else if
+    (this.state.board[1].value && this.state.board[4].value && this.state.board[7].value === "X"){
+      this.winningMessageForX();
+    } else if
+    (this.state.board[2].value && this.state.board[5].value && this.state.board[8].value === "X"){
+      this.winningMessageForX();
+    } else if
+    (this.state.board[6].value && this.state.board[4].value && this.state.board[2].value === "X"){
+      this.winningMessageForX();
+    } else if
+    (this.state.board[0].value && this.state.board[4].value && this.state.board[8].value === "X"){
+      this.winningMessageForX();
+    } else if (this.state.board[0].value && this.state.board[1].value && this.state.board[2].value === "O"){
+      this.winningMessageForO();
+    } else if
+    (this.state.board[3].value && this.state.board[4].value && this.state.board[5].value === "O"){
+      this.winningMessageForO();
+    } else if
+    (this.state.board[6].value && this.state.board[7].value && this.state.board[8].value === "O"){
+      this.winningMessageForO();
+    } else if
+    (this.state.board[0].value && this.state.board[3].value && this.state.board[6].value === "O"){
+      this.winningMessageForO();
+    } else if
+    (this.state.board[1].value && this.state.board[4].value && this.state.board[7].value === "O"){
+      this.winningMessageForO();
+    } else if
+    (this.state.board[2].value && this.state.board[5].value && this.state.board[8].value === "O"){
+      this.winningMessageForO();
+    } else if
+    (this.state.board[6].value && this.state.board[4].value && this.state.board[2].value === "O"){
+      this.winningMessageForO();
+    } else if
+    (this.state.board[0].value && this.state.board[4].value && this.state.board[8].value === "O"){
+      this.winningMessageForO();
+    } else {
+      this.changeActivePlayer()
+    }
   }
 
   takeSquare(squareId) {
@@ -35,8 +100,8 @@ class BoardContainer extends Component {
       }
     });
     this.setState({ board: boardArray });
-    this.addCrossOrNought(squareId);
-    this.changeActivePlayer();
+    this.addCrossOrNought(squareId)
+    this.checkForWinner()
   }
 
   changeActivePlayer() {
@@ -46,6 +111,9 @@ class BoardContainer extends Component {
       this.setState({ activePlayer: "X" });
     }
   }
+
+  
+ 
 
   addCrossOrNought(squareId) {
     this.state.board.forEach(square => {
@@ -66,12 +134,13 @@ class BoardContainer extends Component {
       }
     });
     this.setState({ board: boardArray });
+    document.getElementById("heading").innerHTML = "TicTacToe"
   }
 
   render() {
     return (
       <Fragment>
-        <h1>TicTacToe</h1>
+        <h1 id="heading">TicTacToe</h1>
         <section className="board">
           <Square
             square={this.state.board[0]}
@@ -110,7 +179,7 @@ class BoardContainer extends Component {
             onSquareSelected={this.nodemonBanana}
           /> 
         </section>
-        <button class="new-game" onClick={this.resetBoard}>Start New Game</button>  
+        <button className="new-game" onClick={this.resetBoard}>Start New Game</button>  
       </Fragment>
     );
   }
