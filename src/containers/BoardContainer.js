@@ -19,7 +19,7 @@ class BoardContainer extends Component {
         { id: 8, value: null },
         { id: 9, value: null }
       ],
-      activePlayer: "X"
+      activePlayer: "X",
     };
     this.nodemonBanana = this.takeSquare.bind(this);
     this.resetBoard = this.resetBoard.bind(this);
@@ -27,66 +27,48 @@ class BoardContainer extends Component {
     this.checkForWinner = this.checkForWinner.bind(this);
   }
 
-  winningMessageForX(){
-    // const winner = this.state.activePlayer
-    // document.getElementById("heading").innerHTML = "Player " + winner + " wins!"
-    document.getElementById("heading").innerHTML = "Player X wins!"
-
+  winningMessageFor(winner) {
+    document.getElementById("heading").innerHTML = `Player ${winner} wins!`
   }
 
-  winningMessageForO(){
-    document.getElementById("heading").innerHTML = "Player O wins!"
+  allSqauresSame(squares){
+     return squares.every((sq, i, squares) => sq.value === this.state.activePlayer)
   }
-
 
   checkForWinner(){
-    if (this.state.board[0].value && this.state.board[1].value && this.state.board[2].value === "X"){
-      this.winningMessageForX();
-    } else if
-    (this.state.board[3].value && this.state.board[4].value && this.state.board[5].value === "X"){
-      this.winningMessageForX();
-    } else if
-    (this.state.board[6].value && this.state.board[7].value && this.state.board[8].value === "X"){
-      this.winningMessageForX();
-    } else if
-    (this.state.board[0].value && this.state.board[3].value && this.state.board[6].value === "X"){
-      this.winningMessageForX();
-    } else if
-    (this.state.board[1].value && this.state.board[4].value && this.state.board[7].value === "X"){
-      this.winningMessageForX();
-    } else if
-    (this.state.board[2].value && this.state.board[5].value && this.state.board[8].value === "X"){
-      this.winningMessageForX();
-    } else if
-    (this.state.board[6].value && this.state.board[4].value && this.state.board[2].value === "X"){
-      this.winningMessageForX();
-    } else if
-    (this.state.board[0].value && this.state.board[4].value && this.state.board[8].value === "X"){
-      this.winningMessageForX();
-    } else if (this.state.board[0].value && this.state.board[1].value && this.state.board[2].value === "O"){
-      this.winningMessageForO();
-    } else if
-    (this.state.board[3].value && this.state.board[4].value && this.state.board[5].value === "O"){
-      this.winningMessageForO();
-    } else if
-    (this.state.board[6].value && this.state.board[7].value && this.state.board[8].value === "O"){
-      this.winningMessageForO();
-    } else if
-    (this.state.board[0].value && this.state.board[3].value && this.state.board[6].value === "O"){
-      this.winningMessageForO();
-    } else if
-    (this.state.board[1].value && this.state.board[4].value && this.state.board[7].value === "O"){
-      this.winningMessageForO();
-    } else if
-    (this.state.board[2].value && this.state.board[5].value && this.state.board[8].value === "O"){
-      this.winningMessageForO();
-    } else if
-    (this.state.board[6].value && this.state.board[4].value && this.state.board[2].value === "O"){
-      this.winningMessageForO();
-    } else if
-    (this.state.board[0].value && this.state.board[4].value && this.state.board[8].value === "O"){
-      this.winningMessageForO();
-    } else {
+    if (this.allSqauresSame(this.state.board.slice(0, 3))){
+      const winner = this.state.board[0].value; 
+      this.winningMessageFor(winner)
+     } else if 
+    (this.allSqauresSame(this.state.board.slice(3, 6))){
+      const winner = this.state.board[3].value; 
+      this.winningMessageFor(winner)   
+    } else if 
+    (this.allSqauresSame(this.state.board.slice(6, 9))){
+      const winner = this.state.board[6].value; 
+      this.winningMessageFor(winner)    
+    } else if 
+    (this.allSqauresSame([this.state.board[0], this.state.board[3], this.state.board[6]])){
+      const winner = this.state.board[0].value; 
+      this.winningMessageFor(winner)    
+    }  else if 
+    (this.allSqauresSame([this.state.board[1], this.state.board[4], this.state.board[7]])){
+      const winner = this.state.board[1].value; 
+      this.winningMessageFor(winner)    
+    }  else if 
+    (this.allSqauresSame([this.state.board[2], this.state.board[5], this.state.board[8]])){
+      const winner = this.state.board[2].value; 
+      this.winningMessageFor(winner)    
+    }  else if 
+    (this.allSqauresSame([this.state.board[0], this.state.board[4], this.state.board[8]])){
+      const winner = this.state.board[0].value; 
+      this.winningMessageFor(winner)    
+    }  else if 
+    (this.allSqauresSame([this.state.board[2], this.state.board[4], this.state.board[6]])){
+      const winner = this.state.board[2].value; 
+      this.winningMessageFor(winner)    
+    }  
+    else {
       this.changeActivePlayer()
     }
   }
@@ -99,9 +81,9 @@ class BoardContainer extends Component {
         return square;
       }
     });
-    this.setState({ board: boardArray });
-    this.addCrossOrNought(squareId)
-    this.checkForWinner()
+    this.setState({ board: boardArray }, () => {
+      this.checkForWinner()
+    });
   }
 
   changeActivePlayer() {
@@ -110,19 +92,6 @@ class BoardContainer extends Component {
     } else {
       this.setState({ activePlayer: "X" });
     }
-  }
-
-  
- 
-
-  addCrossOrNought(squareId) {
-    this.state.board.forEach(square => {
-      if (square.id === squareId) {
-        if (this.activePlayer === "X") {
-          return <p> {this.activePlayer === "X" ? "x" : "o"} </p>;
-        }
-      }
-    });
   }
 
   resetBoard(){
